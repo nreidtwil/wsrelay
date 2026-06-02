@@ -68,12 +68,14 @@ func runSession(conn *websocket.Conn, turns []Turn) {
 	}()
 
 	for _, turn := range turns {
-		// Only stream agent turns — skip human/caller characters.
-		if turn.Character == "AVA AGENT" || turn.Character == "HUGH HUMAN" {
-			if err := streamTurn(conn, inbound, turn); err != nil {
-				slog.Error("session error", "turn", turn.Character, "err", err)
-				return
-			}
+		// Only stream AVA AGENT turns — human/caller turns drive the real call,
+		// not the relay. HUGH HUMAN is a Flex agent; their lines are never streamed.
+		if turn.Character != "AVA AGENT" {
+			continue
+		}
+		if err := streamTurn(conn, inbound, turn); err != nil {
+			slog.Error("session error", "turn", turn.Character, "err", err)
+			return
 		}
 	}
 
