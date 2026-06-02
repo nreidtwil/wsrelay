@@ -1,8 +1,0 @@
-Title: Smoke Test
-Author: twilsynth
-
-SAM SLA
-Our production API gateway has been dropping connections for forty minutes.
-
-AVA AGENT
-I am pulling up the cluster diagnostics right now.

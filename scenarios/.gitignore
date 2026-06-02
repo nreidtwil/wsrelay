@@ -1,2 +1,0 @@
-# In twilsynth: .fountain files are copied at Docker build time, not committed.
-# In wsrelay repo: .fountain files ARE committed — App Runner clones this repo to build.
